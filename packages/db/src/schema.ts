@@ -1,5 +1,5 @@
-import { relations, sql } from "drizzle-orm";
-import { pgTable, primaryKey } from "drizzle-orm/pg-core";
+import { InferInsertModel, relations, sql } from "drizzle-orm";
+import { pgTable, primaryKey, varchar } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -78,3 +78,13 @@ export const Session = pgTable("session", (t) => ({
 export const SessionRelations = relations(Session, ({ one }) => ({
   user: one(User, { fields: [Session.userId], references: [User.id] }),
 }));
+
+export const linkedInUsers = pgTable("linkedInUser", {
+  entityUrn: varchar("entityUrn", { length: 255 }).notNull().primaryKey(),
+  firstName: varchar("firstName", { length: 255 }).notNull(),
+  lastName: varchar("lastName", { length: 255 }).notNull(),
+  headline: varchar("headline", { length: 255 }).notNull(),
+  publicIdentifier: varchar("publicIdentifier", { length: 255 }).notNull(),
+});
+
+export type LinkedInUser = InferInsertModel<typeof linkedInUsers>;
