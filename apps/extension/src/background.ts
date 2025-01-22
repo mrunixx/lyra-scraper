@@ -1,19 +1,18 @@
-import { client } from "./trpc/trpcClient";
+import { state } from "./state/extensionState";
+import client from "./trpc/trpcClient";
 
-// type LinkedInUser = {
-//   entityUrn: string,
-//   firstName: string,
-//   lastName: string,
-//   headline: string,
-//   publicIdentifier: string,
-// }
+type LinkedInUserResponse = {
+  data: any;
+  included: Array<LinkedInUser>;
+};
 
-// type LinkedInUserResponse = {
-//   user: LinkedInUser,
-//   included: []
-// }
-
-const connectionMutation = client.linkedIn.addConnection.useMutation();
+type LinkedInUser = {
+  entityUrn: string;
+  firstName: string;
+  lastName: string;
+  headline: string;
+  publicIdentifier: string;
+};
 
 let sent = false;
 async function resendRequest(
@@ -29,19 +28,28 @@ async function resendRequest(
       body: body ?? undefined,
     });
 
-    const responseData = await response.json();
-    console.log("Resent Request Response:", responseData);
-    // const mappedData: LinkedInUser[] = responseData.filter((item: any) => {
-    //   const user = item;
-    //   return user.entityUrn.includes("urn:li:fsd_profile")
-    // }).map((i: any) => ({
-    //   entityUrn: i.entityUrn,
-    //   firstName: i.firstName,
-    //   lastName: i.lastName,
-    //   headline: i.headline,
-    //   publicIdentifier: i.publicIdentifier,
-    // }))
+    const responseData: LinkedInUserResponse = await response.json();
+    const mappedData: LinkedInUser[] = responseData.included
+      .filter((val) => {
+        return val.entityUrn.includes("urn:li:fsd_profile");
+      })
+      .map((connection) => ({
+        entityUrn: connection.entityUrn,
+        firstName: connection.firstName,
+        lastName: connection.lastName,
+        headline: connection.headline,
+        publicIdentifier: connection.publicIdentifier,
+      }));
 
+    for (const user of mappedData) {
+      await client.linkedIn.addConnection.mutate({
+        entityUrn: user.entityUrn,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        headline: user.headline,
+        publicIdentifier: user.publicIdentifier,
+      });
+    }
     sent = false;
     return responseData;
   } catch (error) {
@@ -71,12 +79,7 @@ chrome.webRequest.onBeforeRequest.addListener(
               "X-Restli-Protocol-Version": "2.0.0",
             };
             if (!sent) {
-              resendRequest(
-                details.url,
-                details.method,
-                headers,
-                requestBody,
-              )
+              resendRequest(details.url, details.method, headers, requestBody);
               sent = true;
             }
           });
@@ -89,6 +92,15 @@ chrome.webRequest.onBeforeRequest.addListener(
   { urls: ["https://www.linkedin.com/*"] },
   ["requestBody"],
 );
+
+chrome.runtime.onMessageExternal.addListener((request) => {
+  console.log("message received");
+  if (request.authToken) {
+    state.authToken = request.authToken;
+  } else {
+    state.authToken = null;
+  }
+});
 
 const getCookies = (): Promise<string> => {
   return new Promise((resolve, reject) => {

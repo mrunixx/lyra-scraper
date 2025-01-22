@@ -20,5 +20,8 @@
     "type": "module"
   },
   "permissions": ["webRequest", "tabs", "activeTab", "cookies"],
-  "host_permissions": ["https://www.linkedin.com/*"]
+  "host_permissions": ["https://www.linkedin.com/*"],
+  "externally_connectable": {
+    "matches": ["*://*.localhost/*"]
+  }
 }

@@ -17,6 +17,7 @@ declare module "next-auth" {
     user: {
       id: string;
     } & DefaultSession["user"];
+    token?: string;
   }
 }
 
@@ -50,6 +51,7 @@ export const authConfig = {
           ...opts.session.user,
           id: opts.user.id,
         },
+        token: opts.session.sessionToken
       };
     },
   },
@@ -65,6 +67,7 @@ export const validateToken = async (
         user: {
           ...session.user,
         },
+        token: session.session.sessionToken,
         expires: session.session.expires.toISOString(),
       }
     : null;
