@@ -1,14 +1,17 @@
-import { useSnapshot } from "valtio";
 import "./App.css";
 import lyraLogo from "./assets/lyra-logo.svg"
-import { state } from "./state/extensionState";
-import { useEffect } from "react";
+import { syncUserConnections } from "./api/connections";
 
 function App() {
-  const extensionState = useSnapshot(state);
+  const handleSync = () => {
+    syncUserConnections();
+  }
 
   return (
+    <div>
       <img src={lyraLogo} className="logo" alt="Vite logo" />
+      <button onClick={handleSync}>Sync my connections</button>
+    </div>
   );
 }
 
