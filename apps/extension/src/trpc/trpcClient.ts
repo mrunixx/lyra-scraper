@@ -5,7 +5,6 @@ import type { AppRouter } from "../../../../packages/api/src/root";
 import { state } from "../state/extensionState";
 
 const getAuthToken = () => {
-  console.log(state.authToken)
   if (state.authToken) {
     return state.authToken;
   }

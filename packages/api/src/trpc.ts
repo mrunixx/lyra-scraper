@@ -22,6 +22,7 @@ import { db } from "@acme/db/client";
 const isomorphicGetSession = async (headers: Headers) => {
   const authToken = headers.get("Authorization") ?? null;
   if (authToken) return validateToken(authToken);
+  console.log(auth());
   return auth();
 };
 

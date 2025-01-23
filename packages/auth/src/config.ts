@@ -17,7 +17,7 @@ declare module "next-auth" {
     user: {
       id: string;
     } & DefaultSession["user"];
-    token?: string;
+    sessionToken?: string;
   }
 }
 
@@ -31,7 +31,6 @@ export const isSecureContext = env.NODE_ENV !== "development";
 
 export const authConfig = {
   adapter,
-  // In development, we need to skip checks to allow Expo to work
   ...(!isSecureContext
     ? {
         skipCSRFCheck: skipCSRFCheck,
@@ -41,18 +40,8 @@ export const authConfig = {
   secret: env.AUTH_SECRET,
   providers: [Discord],
   callbacks: {
-    session: (opts) => {
-      if (!("user" in opts))
-        throw new Error("unreachable with session strategy");
-
-      return {
-        ...opts.session,
-        user: {
-          ...opts.session.user,
-          id: opts.user.id,
-        },
-        token: opts.session.sessionToken
-      };
+    session: ({ session, token, user }) => {
+      return session;
     },
   },
 } satisfies NextAuthConfig;
@@ -60,14 +49,15 @@ export const authConfig = {
 export const validateToken = async (
   token: string,
 ): Promise<NextAuthSession | null> => {
-  const sessionToken = token.slice("Bearer ".length);
-  const session = await adapter.getSessionAndUser?.(sessionToken);
+  console.log("sessionToken", token);
+  const session = await adapter.getSessionAndUser?.(token);
+  console.log("session", session)
   return session
     ? {
         user: {
           ...session.user,
         },
-        token: session.session.sessionToken,
+        sessionToken: session.session.sessionToken,
         expires: session.session.expires.toISOString(),
       }
     : null;

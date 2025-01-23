@@ -20,8 +20,8 @@ type Props = {
 export const SessionContextProvider = ({ children, session }: Props) => {
   if (typeof window !== "undefined") {
     if (chrome && chrome.runtime) {
-      if (session?.token) {
-        chrome.runtime.sendMessage("effabpboobfeemcohfmjhilfmgoclmkd", {authToken: session.token}, (res) => {
+      if (session?.sessionToken) {
+        chrome.runtime.sendMessage("effabpboobfeemcohfmjhilfmgoclmkd", {authToken: session.sessionToken}, (res) => {
           console.log(res);
         });
       } else {
