@@ -2,6 +2,7 @@ import { getCookies, getCSRFToken } from "../background";
 import client from "../trpc/trpcClient";
 
 type LinkedInUserResponse = {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   data: any;
   included: Array<LinkedInUser>;
 };
@@ -68,7 +69,7 @@ export const syncUserConnections = async () => {
           });
         } catch (e) {
           console.warn(
-            `Failed to add connection for user ${user.firstName + user.lastName}:`,
+            `Failed to add connection for user ${user.firstName + user.lastName}:`, e
           );
         }
       }

@@ -40,7 +40,7 @@ export const authConfig = {
   secret: env.AUTH_SECRET,
   providers: [Discord],
   callbacks: {
-    session: ({ session, token, user }) => {
+    session: ({ session }) => {
       return session;
     },
   },

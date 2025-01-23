@@ -12,24 +12,20 @@ export const SessionContext = createContext<ISessionContext>({
   session: null,
 });
 
-type Props = {
+interface Props {
   children: ReactNode;
   session: Session | null;
-};
+}
 
 export const SessionContextProvider = ({ children, session }: Props) => {
   if (typeof window !== "undefined") {
-    if (chrome && chrome.runtime) {
-      if (session?.sessionToken) {
-        chrome.runtime.sendMessage("effabpboobfeemcohfmjhilfmgoclmkd", {authToken: session.sessionToken}, (res) => {
-          console.log(res);
-        });
-      } else {
-        chrome.runtime.sendMessage("effabpboobfeemcohfmjhilfmgoclmkd", {authToken: null}, (res) => {
-          console.log(res);
-        });
-      }
-    }
+    chrome.runtime.sendMessage(
+      "effabpboobfeemcohfmjhilfmgoclmkd",
+      { authToken: session?.sessionToken },
+      (res) => {
+        console.log(res);
+      },
+    );
   }
 
   return (

@@ -1,8 +1,8 @@
-import { LinkedInUser } from "../../../../../packages/db/src/schema";
+import type { LinkedInUser } from "../../../../../packages/db/src/schema";
 
-type Props = {
+interface Props {
   user: LinkedInUser;
-};
+}
 
 const LinkedInUserCard = ({ user }: Props) => {
   return (
