@@ -6,7 +6,7 @@ interface Props {
 
 const LinkedInUserCard = ({ user }: Props) => {
   return (
-    <div className="flex flex-col p-4 bg-white shadow-lg rounded-lg border border-gray-200 max-w-sm">
+    <div className="flex max-w-sm flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-lg">
       <div className="mb-4">
         <h2 className="text-xl font-semibold text-gray-800">
           {user.firstName} {user.lastName}
@@ -17,7 +17,7 @@ const LinkedInUserCard = ({ user }: Props) => {
         href={`https://www.linkedin.com/in/${user.publicIdentifier}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block text-center bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-200"
+        className="inline-block rounded-md bg-blue-500 px-4 py-2 text-center text-white transition duration-200 hover:bg-blue-600"
       >
         View LinkedIn Profile
       </a>

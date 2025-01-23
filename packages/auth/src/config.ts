@@ -51,7 +51,7 @@ export const validateToken = async (
 ): Promise<NextAuthSession | null> => {
   console.log("sessionToken", token);
   const session = await adapter.getSessionAndUser?.(token);
-  console.log("session", session)
+  console.log("session", session);
   return session
     ? {
         user: {

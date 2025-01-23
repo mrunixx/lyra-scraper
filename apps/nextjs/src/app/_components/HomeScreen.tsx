@@ -4,7 +4,11 @@ import { api } from "~/trpc/react";
 import LinkedInUserCard from "./LinkedInUser";
 
 const HomeScreen = () => {
-  const { data: connections, isFetching, isLoading } = api.linkedIn.getConnections.useQuery();
+  const {
+    data: connections,
+    isFetching,
+    isLoading,
+  } = api.linkedIn.getConnections.useQuery();
 
   if (isLoading || isFetching) {
     return (

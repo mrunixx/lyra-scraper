@@ -6,7 +6,7 @@ import { createTRPCRouter } from "./trpc";
 export const appRouter = createTRPCRouter({
   auth: authRouter,
   post: postRouter,
-  linkedIn: linkedInRouter
+  linkedIn: linkedInRouter,
 });
 
 // export type definition of API

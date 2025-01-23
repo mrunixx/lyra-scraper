@@ -1,4 +1,4 @@
-import type { InferInsertModel} from "drizzle-orm";
+import type { InferInsertModel } from "drizzle-orm";
 import { relations, sql } from "drizzle-orm";
 import { pgTable, primaryKey, varchar } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
