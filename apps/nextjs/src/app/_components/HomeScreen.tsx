@@ -1,12 +1,12 @@
 "use client";
 
-import { api } from "~/trpc/react";
-import LinkedInUserCard from "./LinkedInUser";
-import ConnectionsTicker from "./ConnectionsTicker";
-import Ripple from "./RippleButton";
-import { Progress } from "./LoadingBar";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+
+import { api } from "~/trpc/react";
+import ConnectionsTicker from "./ConnectionsTicker";
+import { Progress } from "./LoadingBar";
+import Ripple from "./RippleButton";
 
 const HomeScreen = () => {
   const {
@@ -18,32 +18,26 @@ const HomeScreen = () => {
   const [progress, setProgress] = useState(13);
 
   useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 20)
-    return () => clearTimeout(timer)
-  }, [])
-
+    const timer = setTimeout(() => setProgress(66), 20);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (isLoading || isFetching) {
     return (
-      <div className="flex items-center justify-center bg-black flex-col flex-grow">
-        <Progress value={progress} className="w-96 bg-white"/>
+      <div className="flex flex-grow flex-col items-center justify-center bg-black">
+        <Progress value={progress} className="w-96 bg-white" />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col bg-black text-white px-5 justify-center items-center relative flex-grow">
-      {/* <div className="p-4 text-right text-2xl font-bold text-white">
-        <ConnectionsTicker value={connections?.length ?? 0} direction="up" className=""/>
-        connections @ Lyra
-      </div>
-      <div className="flex flex-1 flex-wrap items-center justify-center gap-4 overflow-y-auto p-4">
-        {connections?.map((c, index) => (
-          <LinkedInUserCard user={c} key={index} />
-        ))}
-      </div> */}
+    <div className="relative flex flex-grow flex-col items-center justify-center bg-black px-5 text-white">
       <Link href={"/dashboard"}>
-       <ConnectionsTicker value={connections?.length ?? 0} direction="up" className="text-4xl font-semibold cursor-pointer hover:text-5xl"/>
+        <ConnectionsTicker
+          value={connections?.length ?? 0}
+          direction="up"
+          className="cursor-pointer text-4xl font-semibold hover:text-5xl"
+        />
       </Link>
       <Ripple numCircles={6} className="cursor-pointer" />
     </div>

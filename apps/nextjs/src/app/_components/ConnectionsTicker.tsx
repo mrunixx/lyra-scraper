@@ -1,9 +1,9 @@
 "use client";
 
-import { useInView, useMotionValue, useSpring } from "motion/react";
-import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
-
+import type { ComponentPropsWithoutRef } from "react";
+import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { useInView, useMotionValue, useSpring } from "motion/react";
 
 interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
   value: number;
@@ -29,10 +29,11 @@ export default function ConnectionsTicker({
   const isInView = useInView(ref, { once: true, margin: "0px" });
 
   useEffect(() => {
-    isInView &&
+    if (isInView) {
       setTimeout(() => {
         motionValue.set(direction === "down" ? 0 : value);
       }, delay * 1000);
+    }
   }, [motionValue, isInView, delay, value, direction]);
 
   useEffect(

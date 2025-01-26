@@ -10,11 +10,9 @@ import SearchBar from "../_components/SearchBar";
 const DashboardPage = () => {
   const [search, setSearch] = useState("");
 
-  const {
-    data: connections,
-    isFetching,
-    isLoading,
-  } = api.linkedIn.getConnections.useQuery({ value: search });
+  const { data: connections, isLoading } = api.linkedIn.getConnections.useQuery(
+    { value: search },
+  );
 
   useEffect(() => {
     console.log(search);

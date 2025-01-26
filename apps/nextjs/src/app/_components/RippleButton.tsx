@@ -1,13 +1,13 @@
-import React, { ComponentPropsWithoutRef, CSSProperties } from "react";
- 
+import type { ComponentPropsWithoutRef, CSSProperties } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
- 
+
 interface RippleProps extends ComponentPropsWithoutRef<"div"> {
   mainCircleSize?: number;
   mainCircleOpacity?: number;
   numCircles?: number;
 }
- 
+
 export const Ripple = React.memo(function Ripple({
   mainCircleSize = 210,
   mainCircleOpacity = 0.24,
@@ -29,11 +29,11 @@ export const Ripple = React.memo(function Ripple({
         const animationDelay = `${i * 0.06}s`;
         const borderStyle = i === numCircles - 1 ? "dashed" : "solid";
         const borderOpacity = 5 + i * 5;
- 
+
         return (
           <div
             key={i}
-            className={`[--i: absolute animate-ripple rounded-full border bg-foreground/25 shadow-xl${i}]`}
+            className={`[--i: animate-ripple absolute rounded-full border bg-foreground/25 shadow-xl${i}]`}
             style={
               {
                 width: `${size}px`,
@@ -54,7 +54,7 @@ export const Ripple = React.memo(function Ripple({
     </div>
   );
 });
- 
+
 Ripple.displayName = "Ripple";
 
 export default Ripple;

@@ -1,10 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import { useEffect, useRef, useState } from "react";
 
-type Props = {
+interface Props {
   setSearch: Dispatch<SetStateAction<string>>;
 }
 
-const SearchBar = ({ setSearch } : Props) => {
+const SearchBar = ({ setSearch }: Props) => {
   const [input, setInput] = useState("");
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -18,7 +19,7 @@ const SearchBar = ({ setSearch } : Props) => {
 
     debounceTimeout.current = setTimeout(() => {
       setSearch(value);
-    }, 300); 
+    }, 300);
   };
 
   useEffect(() => {
