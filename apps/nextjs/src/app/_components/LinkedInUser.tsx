@@ -17,7 +17,7 @@ const LinkedInUserCard = ({ user }: Props) => {
         href={`https://www.linkedin.com/in/${user.publicIdentifier}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block rounded-md bg-blue-500 px-4 py-2 text-center text-white transition duration-200 hover:bg-blue-600"
+        className="inline-block rounded-md px-4 py-2 text-center text-white transition duration-200 bg-gradient-to-r from-[#684CFF] via-[#3A5DFF] to-[#2B61FF]"
       >
         View LinkedIn Profile
       </a>
