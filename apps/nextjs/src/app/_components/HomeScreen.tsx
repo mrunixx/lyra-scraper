@@ -13,7 +13,7 @@ const HomeScreen = () => {
     data: connections,
     isFetching,
     isLoading,
-  } = api.linkedIn.getConnections.useQuery();
+  } = api.linkedIn.getConnections.useQuery({ value: "" });
 
   const [progress, setProgress] = useState(13);
 

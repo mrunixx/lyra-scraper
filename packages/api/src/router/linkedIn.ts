@@ -2,10 +2,19 @@ import { z } from "zod";
 
 import { linkedInUsers } from "../../../db/src/schema";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { sql } from "@acme/db";
 
 export const linkedInRouter = createTRPCRouter({
-  getConnections: protectedProcedure.query(async ({ ctx }) => {
-    return await ctx.db.query.linkedInUsers.findMany();
+  getConnections: protectedProcedure.input(
+    z.object({
+      value: z.string()
+    })
+  ).query(async ({ ctx, input }) => {
+    const searchPattern = `%${input.value}%`;
+
+    return await ctx.db.query.linkedInUsers.findMany({
+      where: sql`${linkedInUsers.firstName} || ' ' || ${linkedInUsers.lastName} LIKE ${searchPattern}`,
+    });
   }),
   addConnection: protectedProcedure
     .input(
