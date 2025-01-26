@@ -6,7 +6,7 @@ interface Props {
 
 const LinkedInUserCard = ({ user }: Props) => {
   return (
-    <div className="flex max-w-sm flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-lg">
+    <div className="flex flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-lg">
       <div className="mb-4">
         <h2 className="text-xl font-semibold text-gray-800">
           {user.firstName} {user.lastName}
