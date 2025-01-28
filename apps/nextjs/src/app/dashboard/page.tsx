@@ -14,7 +14,7 @@ const DashboardPage = () => {
   const limit = 40;
   const { data: connections = [], isLoading } =
     api.linkedIn.getConnections.useQuery({ value: search, offset, limit });
-  const [users, setUsers] = useState(connections ?? []);
+  const [users, setUsers] = useState(connections);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const { ref, inView } = useInView({

@@ -21,13 +21,15 @@ export const linkedInRouter = createTRPCRouter({
         where: sql`${linkedInUsers.firstName} || ' ' || ${linkedInUsers.lastName} LIKE ${searchPattern}`,
         offset: input.offset,
         limit: input.limit,
-        orderBy: linkedInUsers.firstName
+        orderBy: linkedInUsers.firstName,
       });
     }),
   getNumConnections: protectedProcedure.query(async ({ ctx }) => {
-    const countResult = await ctx.db.select({
-      count: sql<number>`COUNT(*)`
-    }).from(linkedInUsers);
+    const countResult = await ctx.db
+      .select({
+        count: sql<number>`COUNT(*)`,
+      })
+      .from(linkedInUsers);
 
     return countResult[0]?.count;
   }),
