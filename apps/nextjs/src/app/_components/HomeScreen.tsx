@@ -13,7 +13,7 @@ const HomeScreen = () => {
     data: connections,
     isFetching,
     isLoading,
-  } = api.linkedIn.getConnections.useQuery({ value: "" });
+  } = api.linkedIn.getNumConnections.useQuery();
 
   const [progress, setProgress] = useState(13);
 
@@ -34,7 +34,7 @@ const HomeScreen = () => {
     <div className="relative flex flex-grow flex-col items-center justify-center bg-black px-5 text-white">
       <Link href={"/dashboard"}>
         <ConnectionsTicker
-          value={connections?.length ?? 0}
+          value={connections ?? 0}
           direction="up"
           className="cursor-pointer text-4xl font-semibold hover:text-5xl"
         />

@@ -10,6 +10,8 @@ export const linkedInRouter = createTRPCRouter({
     .input(
       z.object({
         value: z.string(),
+        offset: z.number(),
+        limit: z.number(),
       }),
     )
     .query(async ({ ctx, input }) => {
@@ -17,8 +19,18 @@ export const linkedInRouter = createTRPCRouter({
 
       return await ctx.db.query.linkedInUsers.findMany({
         where: sql`${linkedInUsers.firstName} || ' ' || ${linkedInUsers.lastName} LIKE ${searchPattern}`,
+        offset: input.offset,
+        limit: input.limit,
+        orderBy: linkedInUsers.firstName
       });
     }),
+  getNumConnections: protectedProcedure.query(async ({ ctx }) => {
+    const countResult = await ctx.db.select({
+      count: sql<number>`COUNT(*)`
+    }).from(linkedInUsers);
+
+    return countResult[0]?.count;
+  }),
   addConnections: protectedProcedure
     .input(
       z.object({
