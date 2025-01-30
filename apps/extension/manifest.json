@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "CRXJS React Vite Example",
+  "name": "Lyra Scraper",
   "version": "1.0.0",
   "action": { "default_popup": "index.html" },
+  "icons": {
+    "16": "public/lyra_icon16.png",
+    "32": "public/lyra_icon32.png",
+    "48": "public/lyra_icon48.png",
+    "128": "public/lyra_icon128.png"
+  },
   "content_scripts": [
     {
       "js": ["src/content.tsx"],
