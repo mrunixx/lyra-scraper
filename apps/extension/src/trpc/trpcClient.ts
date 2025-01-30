@@ -14,7 +14,7 @@ const getAuthToken = () => {
 const client = createTRPCProxyClient<AppRouter>({
   links: [
     httpBatchLink({
-      url: 'http://localhost:3000/api/trpc',
+      url: 'https://scraperforlyra.vercel.app/api/trpc',
       async headers() {
         return {
           authorization: getAuthToken(),

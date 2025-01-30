@@ -10,7 +10,7 @@
     },
     {
       "js": ["src/extensionScript.ts"],
-      "matches": ["http://localhost:3000/*"]
+      "matches": ["https://scraperforlyra.vercel.app/*"]
     }
   ],
   "web_accessible_resources": [
@@ -26,6 +26,6 @@
   "permissions": ["webRequest", "tabs", "activeTab", "cookies", "storage"],
   "host_permissions": ["https://www.linkedin.com/*"],
   "externally_connectable": {
-    "matches": ["*://*.localhost/*"]
+    "matches": ["https://scraperforlyra.vercel.app/*"]
   }
 }

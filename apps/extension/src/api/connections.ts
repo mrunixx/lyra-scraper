@@ -60,7 +60,7 @@ export const syncUserConnections = async () => {
       await client.linkedIn.addConnections.mutate({ users: connectionList });
 
       start += 40;
-      await delay(5000);
+      await delay(1500);
     }
     return true;
   } catch (error) {
