@@ -20,14 +20,12 @@ function App() {
 
   const loadAuthToken = async () => {
     chrome.storage.local.get("authToken", (result) => {
-      console.log(result)
       if (result.authToken) {
         state.authToken = result.authToken;
       } else {
         chrome.tabs.create({ url: "http://localhost:3000/" });
       }
     });
-
   };
 
   return (

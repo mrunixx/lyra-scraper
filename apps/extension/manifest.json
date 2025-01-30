@@ -10,7 +10,7 @@
     },
     {
       "js": ["src/extensionScript.ts"],
-      "matches": ["http://localhost:3000/"]
+      "matches": ["http://localhost:3000/*"]
     }
   ],
   "web_accessible_resources": [
