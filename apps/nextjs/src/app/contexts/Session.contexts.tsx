@@ -2,7 +2,7 @@
 
 import type { Session } from "next-auth";
 import type { ReactNode } from "react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 export interface ISessionContext {
   session: Session | null;
@@ -18,15 +18,31 @@ interface Props {
 }
 
 export const SessionContextProvider = ({ children, session }: Props) => {
-  if (typeof window !== "undefined") {
-    chrome.runtime.sendMessage(
-      "effabpboobfeemcohfmjhilfmgoclmkd",
-      { authToken: session?.sessionToken },
-      (res) => {
-        console.log(res);
-      },
-    );
-  }
+  const [extensionId, setExtensionId] = useState("");
+
+  useEffect(() => {
+    const handleExtensionIdEvent = (event: Event) => {
+      const customEvent = event as CustomEvent<{ extensionId: string }>;
+      if (customEvent.detail?.extensionId) {
+        setExtensionId(customEvent.detail.extensionId);
+        console.log("sending token back")
+        chrome.runtime.sendMessage(
+          customEvent.detail.extensionId,
+          { authToken: session?.sessionToken },
+          (res) => {
+            console.log(res);
+          },
+        );
+      }
+    };
+
+    window.addEventListener("extensionId", handleExtensionIdEvent);
+
+    return () => {
+      window.removeEventListener("extensionId", handleExtensionIdEvent);
+    };
+  }, []);
+
 
   return (
     <SessionContext.Provider value={{ session }}>
