@@ -59,7 +59,10 @@ export const linkedInRouter = createTRPCRouter({
           publicIdentifier: user.publicIdentifier,
         }));
 
-        await ctx.db.insert(linkedInUsers).values(userValues).onConflictDoNothing();
+        await ctx.db
+          .insert(linkedInUsers)
+          .values(userValues)
+          .onConflictDoNothing();
 
         return {
           success: true,
