@@ -1,9 +1,11 @@
 import { state } from "./state/extensionState";
 
-chrome.runtime.onMessageExternal.addListener((request) => {
-  console.log("message received");
+chrome.runtime.onMessageExternal.addListener(async (request) => {
+  console.log("message received")
   if (request.authToken) {
     state.authToken = request.authToken;
+    await chrome.storage.local.set({ authToken: request.authToken });
+    console.log(request.authToken)
   } else {
     state.authToken = null;
   }
@@ -38,4 +40,3 @@ export const getCSRFToken = (): Promise<string> => {
     );
   });
 };
-

@@ -1,0 +1,16 @@
+.linkedin-button {
+  display: inline-block;
+  background: linear-gradient(to right, #684cff, #3a5dff, #2b61ff);
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  font-size: 1rem;
+  transition:
+    background-color 0.2s ease-in-out,
+    transform 0.1s ease;
+}
