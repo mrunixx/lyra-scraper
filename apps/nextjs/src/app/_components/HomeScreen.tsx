@@ -39,7 +39,7 @@ const HomeScreen = () => {
           className="cursor-pointer text-4xl font-semibold hover:text-5xl"
         />
       </Link>
-      <Ripple numCircles={6} className="cursor-pointer" />
+      <Ripple numCircles={6} className="cursor-pointer text-white" />
     </div>
   );
 };
