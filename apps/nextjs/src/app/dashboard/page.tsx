@@ -50,7 +50,7 @@ const DashboardPage = () => {
   }, [search]);
 
   return (
-    <div className="flex h-screen w-full flex-col pb-6">
+    <div className="flex h-screen w-full flex-col pb-6 bg-black">
       <Header />
       <div className="mx-6 flex h-1 w-[35%] min-w-[500px] flex-grow flex-col gap-5 self-start rounded-3xl bg-white p-4">
         <SearchBar setSearch={setSearch} />
