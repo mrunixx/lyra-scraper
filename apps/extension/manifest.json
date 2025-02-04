@@ -29,7 +29,7 @@
     "service_worker": "src/background.ts",
     "type": "module"
   },
-  "permissions": ["tabs", "cookies", "storage"],
+  "permissions": ["cookies", "storage"],
   "host_permissions": ["https://www.linkedin.com/*"],
   "externally_connectable": {
     "matches": ["https://scraperforlyra.vercel.app/*"]
